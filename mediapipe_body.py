@@ -11,18 +11,13 @@ mp_pose = mp.solutions.pose
 
 mp_draw = mp.solutions.drawing_utils
 
-def landmarks_to_keypoints(landmarks, definitions) :
+def send_pose_as_single_osc(landmarks):
+    coordinates = []
+    for landmark in landmarks:
+        coordinates.extend([1.0 - float(landmark.x), 1.0 - float(landmark.y)])
 
-    keypoints = dict()
-
-    for j, landmark in enumerate(landmarks):
-        x = 1.0 - float(landmark.x)
-        y = 1.0 - float(landmark.y)
-        part = definitions(j).name
-
-        keypoints[part] = [x,y]
-
-    return keypoints
+    osc_msg = oscbuildparse.OSCMessage("/wek/inputs", None, coordinates)
+    osc_send(osc_msg, "localhost")
 
 def detection_context(dev_id=0):
 
@@ -33,27 +28,19 @@ def detection_context(dev_id=0):
             success, image = cap.read()
             if not success:
                 print("Ignoring empty camera frame.")
-                # If loading a video, use 'break' instead of 'continue'.
                 continue
 
-            # To improve performance, optionally mark the image as not writeable to
-            # pass by reference.
             image.flags.writeable = False
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-            
+
             results = pose.process(image)
 
             if results.pose_landmarks:
 
                 mp_draw.draw_landmarks(image, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
 
-                keypoints = landmarks_to_keypoints(results.pose_landmarks.landmark, mp_pose.PoseLandmark)
-
-                for keypoint in keypoints:
-                    
-                    osc_process()
-                    osc_msg = oscbuildparse.OSCMessage("/keypoint/" + str(keypoint), None, keypoints[keypoint] )
-                    osc_send(osc_msg, "localhost")
+                osc_process()
+                send_pose_as_single_osc(results.pose_landmarks.landmark)
 
             image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
             image = cv2.flip(image, 1)
