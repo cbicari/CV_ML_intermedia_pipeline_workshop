@@ -1,133 +1,28 @@
-(venv) PS C:\> git clone https://github.com/cbicari/c-lab-scripts.git
-Cloning into 'c-lab-scripts'...
-remote: Enumerating objects: 18, done.
-remote: Counting objects: 100% (18/18), done.
-remote: Compressing objects: 100% (12/12), done.
-remote: Total 18 (delta 5), reused 18 (delta 5), pack-reused 0 (from 0)
-Receiving objects: 100% (18/18), 8.61 KiB | 4.30 MiB/s, done.
-Resolving deltas: 100% (5/5), done.
-(venv) PS C:\> Set-ExecutionPolicy Bypass -Scope Process
-(venv) PS C:\> cd .\c-lab-scripts\
-(venv) PS C:\c-lab-scripts> .\install.ps1
-
-========================================
-   C-Lab Scripts - Windows Setup
-========================================
-
-[1/4] Setting script execution policy...
-Set-ExecutionPolicy : Windows PowerShell a correctement mis à jour votre stratégie d’exécution, mais ce paramétrage
-est remplacé par une stratégie définie dans un contexte plus spécifique. Votre environnement va donc conserver sa
-stratégie d’exécution actuelle, Bypass. Tapez «Get-ExecutionPolicy -List» pour afficher les paramètres de stratégie
-d’exécution. Pour plus d’informations, voir «Get-Help Set-ExecutionPolicy».
-Au caractère C:\c-lab-scripts\install.ps1:10 : 1
-+ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser  ...
-+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    + CategoryInfo          : PermissionDenied: (:) [Set-ExecutionPolicy], SecurityException
-    + FullyQualifiedErrorId : ExecutionPolicyOverride,Microsoft.PowerShell.Commands.SetExecutionPolicyCommand
-      Done.
-[2/4] Checking for Python 3.12...
-      Found: Python 3.12.10
-[3/4] Creating virtual environment and installing dependencies...
-      (This may take a few minutes, please wait)
-Collecting mediapipe==0.10.14 (from -r C:\c-lab-scripts\requirements.txt (line 1))
-  Using cached mediapipe-0.10.14-cp312-cp312-win_amd64.whl.metadata (9.9 kB)
-Collecting opencv-python (from -r C:\c-lab-scripts\requirements.txt (line 2))
-  Using cached opencv_python-4.13.0.92-cp37-abi3-win_amd64.whl.metadata (20 kB)
-Collecting osc4py3 (from -r C:\c-lab-scripts\requirements.txt (line 3))
-  Using cached osc4py3-1.0.8-py3-none-any.whl
-Collecting absl-py (from mediapipe==0.10.14->-r C:\c-lab-scripts\requirements.txt (line 1))
-  Using cached absl_py-2.4.0-py3-none-any.whl.metadata (3.3 kB)
-Collecting attrs>=19.1.0 (from mediapipe==0.10.14->-r C:\c-lab-scripts\requirements.txt (line 1))
-  Using cached attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)
-Collecting flatbuffers>=2.0 (from mediapipe==0.10.14->-r C:\c-lab-scripts\requirements.txt (line 1))
-  Using cached flatbuffers-25.12.19-py2.py3-none-any.whl.metadata (1.0 kB)
-Collecting jax (from mediapipe==0.10.14->-r C:\c-lab-scripts\requirements.txt (line 1))
-  Using cached jax-0.10.1-py3-none-any.whl.metadata (13 kB)
-Collecting jaxlib (from mediapipe==0.10.14->-r C:\c-lab-scripts\requirements.txt (line 1))
-  Using cached jaxlib-0.10.1-cp312-cp312-win_amd64.whl.metadata (1.4 kB)
-Collecting matplotlib (from mediapipe==0.10.14->-r C:\c-lab-scripts\requirements.txt (line 1))
-  Using cached matplotlib-3.10.9-cp312-cp312-win_amd64.whl.metadata (52 kB)
-Collecting numpy (from mediapipe==0.10.14->-r C:\c-lab-scripts\requirements.txt (line 1))
-  Using cached numpy-2.4.6-cp312-cp312-win_amd64.whl.metadata (6.6 kB)
-Collecting opencv-contrib-python (from mediapipe==0.10.14->-r C:\c-lab-scripts\requirements.txt (line 1))
-  Using cached opencv_contrib_python-4.13.0.92-cp37-abi3-win_amd64.whl.metadata (20 kB)
-Collecting protobuf<5,>=4.25.3 (from mediapipe==0.10.14->-r C:\c-lab-scripts\requirements.txt (line 1))
-  Using cached protobuf-4.25.9-cp310-abi3-win_amd64.whl.metadata (541 bytes)
-Collecting sounddevice>=0.4.4 (from mediapipe==0.10.14->-r C:\c-lab-scripts\requirements.txt (line 1))
-  Using cached sounddevice-0.5.5-py3-none-win_amd64.whl.metadata (1.4 kB)
-Collecting cffi (from sounddevice>=0.4.4->mediapipe==0.10.14->-r C:\c-lab-scripts\requirements.txt (line 1))
-  Using cached cffi-2.0.0-cp312-cp312-win_amd64.whl.metadata (2.6 kB)
-Collecting ml_dtypes>=0.5.0 (from jax->mediapipe==0.10.14->-r C:\c-lab-scripts\requirements.txt (line 1))
-  Using cached ml_dtypes-0.5.4-cp312-cp312-win_amd64.whl.metadata (9.2 kB)
-Collecting opt_einsum (from jax->mediapipe==0.10.14->-r C:\c-lab-scripts\requirements.txt (line 1))
-  Using cached opt_einsum-3.4.0-py3-none-any.whl.metadata (6.3 kB)
-Collecting scipy>=1.14 (from jax->mediapipe==0.10.14->-r C:\c-lab-scripts\requirements.txt (line 1))
-  Using cached scipy-1.17.1-cp312-cp312-win_amd64.whl.metadata (60 kB)
-Collecting contourpy>=1.0.1 (from matplotlib->mediapipe==0.10.14->-r C:\c-lab-scripts\requirements.txt (line 1))
-  Using cached contourpy-1.3.3-cp312-cp312-win_amd64.whl.metadata (5.5 kB)
-Collecting cycler>=0.10 (from matplotlib->mediapipe==0.10.14->-r C:\c-lab-scripts\requirements.txt (line 1))
-  Using cached cycler-0.12.1-py3-none-any.whl.metadata (3.8 kB)
-Collecting fonttools>=4.22.0 (from matplotlib->mediapipe==0.10.14->-r C:\c-lab-scripts\requirements.txt (line 1))
-  Using cached fonttools-4.63.0-cp312-cp312-win_amd64.whl.metadata (121 kB)
-Collecting kiwisolver>=1.3.1 (from matplotlib->mediapipe==0.10.14->-r C:\c-lab-scripts\requirements.txt (line 1))
-  Using cached kiwisolver-1.5.0-cp312-cp312-win_amd64.whl.metadata (5.2 kB)
-Collecting packaging>=20.0 (from matplotlib->mediapipe==0.10.14->-r C:\c-lab-scripts\requirements.txt (line 1))
-  Using cached packaging-26.2-py3-none-any.whl.metadata (3.5 kB)
-Collecting pillow>=8 (from matplotlib->mediapipe==0.10.14->-r C:\c-lab-scripts\requirements.txt (line 1))
-  Using cached pillow-12.2.0-cp312-cp312-win_amd64.whl.metadata (9.0 kB)
-Collecting pyparsing>=3 (from matplotlib->mediapipe==0.10.14->-r C:\c-lab-scripts\requirements.txt (line 1))
-  Using cached pyparsing-3.3.2-py3-none-any.whl.metadata (5.8 kB)
-Collecting python-dateutil>=2.7 (from matplotlib->mediapipe==0.10.14->-r C:\c-lab-scripts\requirements.txt (line 1))
-  Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
-Collecting six>=1.5 (from python-dateutil>=2.7->matplotlib->mediapipe==0.10.14->-r C:\c-lab-scripts\requirements.txt (line 1))
-  Using cached six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
-Collecting pycparser (from cffi->sounddevice>=0.4.4->mediapipe==0.10.14->-r C:\c-lab-scripts\requirements.txt (line 1))
-  Using cached pycparser-3.0-py3-none-any.whl.metadata (8.2 kB)
-Using cached mediapipe-0.10.14-cp312-cp312-win_amd64.whl (50.8 MB)
-Using cached opencv_python-4.13.0.92-cp37-abi3-win_amd64.whl (40.2 MB)
-Using cached attrs-26.1.0-py3-none-any.whl (67 kB)
-Using cached flatbuffers-25.12.19-py2.py3-none-any.whl (26 kB)
-Using cached numpy-2.4.6-cp312-cp312-win_amd64.whl (12.3 MB)
-Using cached protobuf-4.25.9-cp310-abi3-win_amd64.whl (413 kB)
-Using cached sounddevice-0.5.5-py3-none-win_amd64.whl (365 kB)
-Using cached absl_py-2.4.0-py3-none-any.whl (135 kB)
-Using cached jax-0.10.1-py3-none-any.whl (3.2 MB)
-Using cached jaxlib-0.10.1-cp312-cp312-win_amd64.whl (64.8 MB)
-Using cached matplotlib-3.10.9-cp312-cp312-win_amd64.whl (8.2 MB)
-Using cached opencv_contrib_python-4.13.0.92-cp37-abi3-win_amd64.whl (46.5 MB)
-Using cached contourpy-1.3.3-cp312-cp312-win_amd64.whl (226 kB)
-Using cached cycler-0.12.1-py3-none-any.whl (8.3 kB)
-Using cached fonttools-4.63.0-cp312-cp312-win_amd64.whl (2.3 MB)
-Using cached kiwisolver-1.5.0-cp312-cp312-win_amd64.whl (73 kB)
-Using cached ml_dtypes-0.5.4-cp312-cp312-win_amd64.whl (212 kB)
-Using cached packaging-26.2-py3-none-any.whl (100 kB)
-Using cached pillow-12.2.0-cp312-cp312-win_amd64.whl (7.1 MB)
-Using cached pyparsing-3.3.2-py3-none-any.whl (122 kB)
-Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
-Using cached scipy-1.17.1-cp312-cp312-win_amd64.whl (36.5 MB)
-Using cached cffi-2.0.0-cp312-cp312-win_amd64.whl (183 kB)
-Using cached opt_einsum-3.4.0-py3-none-any.whl (71 kB)
-Using cached six-1.17.0-py2.py3-none-any.whl (11 kB)
-Using cached pycparser-3.0-py3-none-any.whl (48 kB)
-Installing collected packages: flatbuffers, six, pyparsing, pycparser, protobuf, pillow, packaging, osc4py3, opt_einsum, numpy, kiwisolver, fonttools, cycler, attrs, absl-py, scipy, python-dateutil, opencv-python, opencv-contrib-python, ml_dtypes, contourpy, cffi, sounddevice, matplotlib, jaxlib, jax, mediapipe
-Successfully installed absl-py-2.4.0 attrs-26.1.0 cffi-2.0.0 contourpy-1.3.3 cycler-0.12.1 flatbuffers-25.12.19 fonttools-4.63.0 jax-0.10.1 jaxlib-0.10.1 kiwisolver-1.5.0 matplotlib-3.10.9 mediapipe-0.10.14 ml_dtypes-0.5.4 numpy-2.4.6 opencv-contrib-python-4.13.0.92 opencv-python-4.13.0.92 opt_einsum-3.4.0 osc4py3-1.0.8 packaging-26.2 pillow-12.2.0 protobuf-4.25.9 pycparser-3.0 pyparsing-3.3.2 python-dateutil-2.9.0.post0 scipy-1.17.1 six-1.17.0 sounddevice-0.5.5
-
-[notice] A new release of pip is available: 25.0.1 -> 26.1.2
-[notice] To update, run: C:\c-lab-scripts\venv\Scripts\python.exe -m pip install --upgrade pip
-      Dependencies installed.
-[4/4] Creating desktop shortcuts...
-      Done.
-
-========================================
-   Setup complete!
-   'Hand Tracking' and 'Body Tracking'
-   shortcuts are now on your desktop.
-========================================
-
-Press Enter to close:
-
-(venv) PS C:\c-lab-scripts> python .\hand_recognition.py
-Traceback (most recent call last):
-  File "C:\c-lab-scripts\hand_recognition.py", line 1, in <module>
-    import mediapipe as mp
-ModuleNotFoundError: No module named 'mediapipe'
+PS C:\c-lab-scripts> .\install.ps1
+Au caractère C:\c-lab-scripts\install.ps1:13 : 9
++ } catch {
++         ~
+Accolade fermante « } » manquante dans le bloc d'instruction ou définition du type manquante.
+Au caractère C:\c-lab-scripts\install.ps1:14 : 82
++ ...  (Policy already managed by your system â€” no change needed)" -Foreg ...
++                                                                 ~
+Jeton inattendu « ) » dans l’expression ou l’instruction.
+Au caractère C:\c-lab-scripts\install.ps1:17 : 67
++ ...  all scripts in this repo (git downloads are flagged as "from the int ...
++                                                              ~~~~
+Jeton inattendu « from » dans l’expression ou l’instruction.
+Au caractère C:\c-lab-scripts\install.ps1:17 : 67
++ ...  all scripts in this repo (git downloads are flagged as "from the int ...
++                                                              ~~~~
+Le mot clé « from » n’est pas pris en charge dans cette version du langage.
+Au caractère C:\c-lab-scripts\install.ps1:27 : 134
++ ... ) + ";" + [System.Environment]::GetEnvironmentVariable("PATH","User")
++                                                             ~~~~~~~~~~~~~
+Jeton inattendu « PATH","User")
+    Write-Host " » dans l’expression ou l’instruction.
+Au caractère C:\c-lab-scripts\install.ps1:70 : 32
++ Read-Host "Press Enter to close"
++                                ~
+Le terminateur " est manquant dans la chaîne.
+    + CategoryInfo          : ParserError: (:) [], ParseException
+    + FullyQualifiedErrorId : MissingEndCurlyBrace
