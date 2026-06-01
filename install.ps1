@@ -5,13 +5,13 @@ Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 
 # 1. Set execution policy permanently for this user
-# Wrapped in try/catch — on managed machines a Group Policy may already set Bypass at a higher
+# Wrapped in try/catch - on managed machines a Group Policy may already set Bypass at a higher
 # level, which is fine (more permissive). The warning looks scary but scripts will run.
 Write-Host "[1/4] Setting script execution policy..." -ForegroundColor Yellow
 try {
     Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force -ErrorAction Stop
 } catch {
-    Write-Host "      (Policy already managed by your system — no change needed)" -ForegroundColor Gray
+    Write-Host "      (Policy already managed by your system - no change needed)" -ForegroundColor Gray
 }
 
 # Unblock all scripts in this repo (git downloads are flagged as "from the internet")
