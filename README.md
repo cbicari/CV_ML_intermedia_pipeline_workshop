@@ -2,20 +2,23 @@
 
 Send body and hand tracking data from your webcam to any software that speaks OSC (like Wekinator, Max/MSP, Pure Data, TouchDesigner...).
 
-## What's in here
-
-| Script | What it does |
-|---|---|
-| `hand_recognition.py` | Tracks 21 hand landmarks and sends them as OSC |
-| `mediapipe_body.py` | Tracks 33 body pose landmarks and sends them as OSC |
-
-Both scripts send a single OSC message to `127.0.0.1:9000` on the address `/wek/inputs`, followed by floats — ready to plug into **Wekinator** directly.
+Both scripts send to `/wek/inputs` at `127.0.0.1:9000` — ready to plug into Wekinator directly.
 
 ---
 
-## Windows — Quick Install
+## Windows — Install
 
-Open PowerShell at `C:\` (right-click Start → Terminal) and run these four commands one by one:
+**Step 1 — Open File Explorer and go to `C:\`**
+
+Open any folder window, then click on the address bar at the top, type `C:\` and press Enter.
+
+**Step 2 — Open a terminal here**
+
+Right-click on an empty area of the folder (not on a file) and select **"Open in Terminal"**.
+
+> If you don't see that option, hold **Shift** while right-clicking.
+
+**Step 3 — Run these four commands, one by one**
 
 ```powershell
 git clone https://github.com/cbicari/c-lab-scripts
@@ -24,60 +27,31 @@ cd c-lab-scripts
 .\install.ps1
 ```
 
-That's it. The script installs Python 3.12 if needed, sets up the virtual environment, installs all dependencies, and places **Hand Tracking** and **Body Tracking** shortcuts on the desktop.
+That's it. The install script takes care of everything: Python 3.12, the virtual environment, all dependencies, and two shortcuts on your desktop — **Hand Tracking** and **Body Tracking**.
 
-> **Important:** Clone to `C:\` — not inside your user folder (`C:\Users\...`). Accented characters in Windows usernames (e.g. `Étudiant`) break MediaPipe's internal file loader.
+**Step 4 — Use the desktop shortcuts**
 
-After setup, just double-click a desktop shortcut. Launching one will automatically close the other.
+Just double-click a shortcut to launch. Launching one will automatically close the other. Press **Q** or close the window to stop.
 
----
-
-## Linux / Mac — Setup
-
-### Step 1 — Install Python
-
-You need Python 3.9, 3.10, 3.11, or 3.12. Check with `python3 --version` in a terminal. Download from [python.org](https://www.python.org/downloads/) if needed.
+> **Why `C:\` ?** Windows usernames with accented characters (e.g. `Étudiant`) break MediaPipe. Installing at `C:\` avoids this entirely.
 
 ---
 
-### Step 2 — Create a virtual environment
+## Linux / Mac — Install
 
-A virtual environment is an isolated space for your project's dependencies — it keeps things tidy and avoids conflicts with other Python projects.
+**Step 1 — Open a terminal in the project folder**
 
-Open a terminal (or Command Prompt on Windows) in this folder, then:
+**Step 2 — Run**
 
-**Linux / Mac**
 ```bash
+git clone https://github.com/cbicari/c-lab-scripts
+cd c-lab-scripts
 python3 -m venv venv
 source venv/bin/activate
-```
-
-**Windows**
-```bat
-python -m venv venv
-venv\Scripts\activate
-```
-
-Your prompt should now show `(venv)` — that means you're inside the environment.
-
----
-
-### Step 3 — Install dependencies
-
-```bash
 pip install -r requirements.txt
 ```
 
-This installs:
-- **mediapipe** — Google's hand and body tracking
-- **opencv-python** — webcam capture and image display
-- **osc4py3** — sending OSC messages
-
----
-
-### Step 4 — Run a script
-
-Make sure your webcam is plugged in, then:
+**Step 3 — Launch a script**
 
 ```bash
 python hand_recognition.py
@@ -86,29 +60,24 @@ python hand_recognition.py
 python mediapipe_body.py
 ```
 
-A window will open showing your webcam feed with skeleton overlay. Press **Q** to quit.
+Press **Q** or close the window to stop.
 
 ---
 
-### Step 5 — Connect to Wekinator (or any OSC app)
+## Wekinator setup
 
-Both scripts send to `127.0.0.1` port `9000`, address `/wek/inputs`.
-
-In **Wekinator**, set:
-- Inputs: `66` for body pose, `63` for hand
-- OSC port: `9000`
-- Input address: `/wek/inputs`
+| Setting | Value |
+|---|---|
+| OSC input port | `9000` |
+| OSC address | `/wek/inputs` |
+| Number of inputs | `63` (hand) or `66` (body) |
 
 ---
 
 ## Troubleshooting
 
-**Camera not opening** — Try changing the device index in the script (e.g. `detection_context(dev_id=1)`).
+**Camera not opening** — Try `detection_context(dev_id=1)` in the script to switch camera.
 
-**`ModuleNotFoundError`** — Make sure your virtual environment is activated (you should see `(venv)` in your prompt) and that you ran `pip install -r requirements.txt`.
+**`ModuleNotFoundError`** — Your terminal is not using the venv. On Linux/Mac run `source venv/bin/activate` first. On Windows, use the desktop shortcuts instead.
 
-**`AttributeError: module 'mediapipe' has no attribute 'solutions'`** — Newer MediaPipe versions removed the legacy API. Make sure you're using the pinned version: delete your `venv` folder, recreate it, and run `pip install -r requirements.txt` again.
-
-**Slow or laggy** — MediaPipe runs on CPU by default. Close other heavy applications.
-
-**Windows: `venv\Scripts\activate` not working** — Run this first in PowerShell: `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`
+**Slow or laggy** — MediaPipe runs on CPU. Close other heavy applications.
