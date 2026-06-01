@@ -13,14 +13,30 @@ Both scripts send a single OSC message to `127.0.0.1:9000` on the address `/wek/
 
 ---
 
-## Setup
+## Windows — Quick Install
+
+Open PowerShell at `C:\` (right-click Start → Terminal) and run these four commands one by one:
+
+```powershell
+git clone https://github.com/cbicari/c-lab-scripts
+Set-ExecutionPolicy Bypass -Scope Process
+cd c-lab-scripts
+.\install.ps1
+```
+
+That's it. The script installs Python 3.12 if needed, sets up the virtual environment, installs all dependencies, and places **Hand Tracking** and **Body Tracking** shortcuts on the desktop.
+
+> **Important:** Clone to `C:\` — not inside your user folder (`C:\Users\...`). Accented characters in Windows usernames (e.g. `Étudiant`) break MediaPipe's internal file loader.
+
+After setup, just double-click a desktop shortcut. Launching one will automatically close the other.
+
+---
+
+## Linux / Mac — Setup
 
 ### Step 1 — Install Python
 
-You need Python 3.9, 3.10, 3.11, or 3.12.
-
-- **Linux / Mac**: Python is usually already installed. Check with `python3 --version` in a terminal.
-- **Windows**: Download from [python.org](https://www.python.org/downloads/). During install, check **"Add Python to PATH"**.
+You need Python 3.9, 3.10, 3.11, or 3.12. Check with `python3 --version` in a terminal. Download from [python.org](https://www.python.org/downloads/) if needed.
 
 ---
 
