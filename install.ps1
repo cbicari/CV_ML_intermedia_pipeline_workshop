@@ -5,9 +5,14 @@ Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 
 # 1. Set execution policy permanently for this user
-# This allows local scripts to always run without prompts
+# Wrapped in try/catch — on managed machines a Group Policy may already set Bypass at a higher
+# level, which is fine (more permissive). The warning looks scary but scripts will run.
 Write-Host "[1/4] Setting script execution policy..." -ForegroundColor Yellow
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+try {
+    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force -ErrorAction Stop
+} catch {
+    Write-Host "      (Policy already managed by your system — no change needed)" -ForegroundColor Gray
+}
 
 # Unblock all scripts in this repo (git downloads are flagged as "from the internet")
 Get-ChildItem $PSScriptRoot -Filter "*.ps1" | ForEach-Object { Unblock-File $_.FullName }
@@ -56,8 +61,10 @@ Write-Host "      Done." -ForegroundColor Green
 Write-Host ""
 Write-Host "========================================" -ForegroundColor Green
 Write-Host "   Setup complete!" -ForegroundColor Green
-Write-Host "   'Hand Tracking' and 'Body Tracking'" -ForegroundColor Green
-Write-Host "   shortcuts are now on your desktop." -ForegroundColor Green
 Write-Host "========================================" -ForegroundColor Green
+Write-Host ""
+Write-Host "-> Use the desktop shortcuts to launch the scripts." -ForegroundColor Cyan
+Write-Host "   (Do NOT run 'python ...' directly in this terminal" -ForegroundColor Cyan
+Write-Host "    unless you first run: .\venv\Scripts\activate)" -ForegroundColor Cyan
 Write-Host ""
 Read-Host "Press Enter to close"

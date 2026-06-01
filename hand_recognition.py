@@ -63,7 +63,7 @@ def detection_context(dev_id = 0):
             image = cv2.flip(image, 1)
             cv2.imshow('frame', image)
 
-            if cv2.waitKey(1) == ord('q'):
+            if cv2.waitKey(1) == ord('q') or cv2.getWindowProperty('frame', cv2.WND_PROP_VISIBLE) < 1:
                 break
 
         cap.release()
