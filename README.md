@@ -46,15 +46,26 @@ In this pipeline, there are two separate OSC hops, each with its own port:
 
 ## Windows — Install
 
-**Step 1 — Open File Explorer and go to `C:\`**
+Two other pieces of software need to be on your computer for this to work: **Git** and **Python**. If you've never heard of either, here's what they are and what you need to do about each:
 
-Open any folder window, then click on the address bar at the top, type `C:\` and press Enter.
+- **Git** is the tool that downloads ("clones") this project from GitHub onto your computer. Windows doesn't include it — you install it once, below, before you can even download this repo.
+- **Python** is the programming language the tracking scripts are written in. You do **not** need to install this yourself: `install.ps1` (a script inside this repo) checks for it and installs the correct version automatically. It's just good to know it's there, in case a later error message mentions it.
 
-**Step 2 — Open a terminal here**
+**Step 1 — Install Git (one time only, skip if you already have it)**
 
-Right-click on an empty area of the folder (not on a file) and select **"Open in Terminal"**.
+Open File Explorer, click the address bar at the top, type `C:\`, and press Enter. Right-click an empty area of that folder and choose **"Open in Terminal"** (hold **Shift** while right-clicking if you don't see that option). Then run:
 
-> If you don't see that option, hold **Shift** while right-clicking.
+```powershell
+winget install --id Git.Git -e --source winget --accept-package-agreements --accept-source-agreements
+```
+
+`winget` is a Windows built-in app installer, so this doesn't require you to open a browser or click through an installer. Once it finishes, **close this terminal window and open a new one** (the "Open in Terminal" trick again) — this lets your computer notice that `git` is now available.
+
+> Already have Git? Running the command above again won't cause any harm — winget will just tell you it's already installed.
+
+**Step 2 — Go to `C:\` and open a terminal**
+
+Same as above: File Explorer → address bar → type `C:\` → Enter, then right-click an empty area and select **"Open in Terminal"**.
 
 **Step 3 — Run these four commands, one by one**
 
@@ -65,7 +76,14 @@ cd c-lab-scripts
 .\install\install.ps1
 ```
 
-That's it. The install script takes care of everything: Python 3.12, the virtual environment, all dependencies, and two shortcuts on your desktop — **Hand Tracking** and **Body Tracking**.
+The last line (`.\install\install.ps1`) runs the install script, which does four things for you, in order:
+
+1. Installs Python 3.12 (if you don't already have it)
+2. Creates a virtual environment (an isolated folder just for this project's dependencies, so they don't clash with anything else on your computer)
+3. Installs all the required dependencies into it
+4. **Adds two shortcuts to your desktop** — **Hand Tracking** and **Body Tracking** — so you never have to open a terminal again to run the scripts
+
+That last part is the important one to notice: once this finishes, look at your desktop — you'll see two new icons there. That's how you'll launch the scripts from now on.
 
 **Step 4 — Use the desktop shortcuts**
 
@@ -77,9 +95,43 @@ Just double-click a shortcut to launch. Launching one will automatically close t
 
 ## Linux / Mac — Install
 
-**Step 1 — Open a terminal in the project folder**
+Same two pieces of software as Windows are needed here too: **Git** and **Python 3**. The difference is that on Linux/Mac there's no `install.ps1` doing the checking and installing for you — this repo doesn't include an install script for these platforms, so you (or your system) need to make sure both are already there before continuing.
 
-**Step 2 — Run**
+The good news: most Linux distributions and Macs already have both, or come close enough that installing them is a single command.
+
+**Step 1 — Check what you already have**
+
+Open a terminal and run:
+
+```bash
+git --version
+python3 --version
+```
+
+If both print back a version number (e.g. `git version 2.43.0`, `Python 3.11.6`), you're set — skip ahead to Step 2. If either says something like "command not found", install the missing one:
+
+**Linux (Debian/Ubuntu, e.g. via `apt`):**
+```bash
+sudo apt update
+sudo apt install -y git python3 python3-venv python3-pip
+```
+
+**Linux (Fedora, via `dnf`):**
+```bash
+sudo dnf install -y git python3
+```
+
+**Mac:**
+```bash
+xcode-select --install
+```
+This installs Apple's Command Line Tools, a small Apple-provided package that includes both Git and Python 3. Click "Install" if a popup appears, and wait for it to finish before moving on.
+
+> If you use [Homebrew](https://brew.sh/), `brew install git python` works too and is easier to keep up to date.
+
+**Step 2 — Open a terminal in the project folder**
+
+**Step 3 — Run**
 
 ```bash
 git clone https://github.com/cbicari/c-lab-scripts
@@ -89,7 +141,7 @@ source venv/bin/activate
 pip install -r install/requirements.txt
 ```
 
-**Step 3 — Launch a script**
+**Step 4 — Launch a script**
 
 ```bash
 python scripts/hand_recognition.py
